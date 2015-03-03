@@ -1,6 +1,6 @@
 ## Title: JMPriceTooltip
 ## APIVersion: 100010
-## DependsOn: JMPriceSuggestion
+## DependsOn: JMPriceSuggestion JMTradingHouseSnapshot
 ## Version: 0.1
 ## Author: Jordy Moos
 ## Description: Add price info to the tooltip

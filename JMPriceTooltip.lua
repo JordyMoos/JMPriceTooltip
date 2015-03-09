@@ -85,7 +85,7 @@ local function updateToolTip(itemLink, tooltip)
     )
 
     for guildName, data in pairs(newestPrice.suggestedPriceForGuild) do
-        tooltip:AddLine('Newest: ' .. data.pricePerPiece .. ' in ' .. guildName .. ' (' .. data.saleCount .. ')')
+        tooltip:AddLine('Newest: ' .. data.pricePerPiece .. ' in ' .. guildName .. ' (' .. data.saleCount .. ') ' .. ZO_FormatDurationAgo(GetTimeStamp() - data.saleTimestamp))
     end
 
     local cheapestPrice = JMPriceSuggestion.getPriceSuggestion(
@@ -100,11 +100,16 @@ local function updateToolTip(itemLink, tooltip)
         itemLink,
         JMPriceSuggestion.algorithms.AVERAGE
     )
+    local normalPrice = JMPriceSuggestion.getPriceSuggestion(
+        itemLink,
+        JMPriceSuggestion.algorithms.NORMAL
+    )
 
     ZO_Tooltip_AddDivider(tooltip)
     tooltip:AddLine('Most expensive: ' .. expensivePrice.bestPrice.pricePerPiece .. ' in ' .. expensivePrice.bestPrice.guildName .. ' (' .. expensivePrice.bestPrice.saleCount .. ')')
     tooltip:AddLine('Cheapest: ' .. cheapestPrice.bestPrice.pricePerPiece .. ' in ' .. cheapestPrice.bestPrice.guildName .. ' (' .. cheapestPrice.bestPrice.saleCount .. ')')
     tooltip:AddLine('Average: ' .. averagePrice.bestPrice.pricePerPiece .. ' in ' .. averagePrice.bestPrice.guildName .. ' (' .. averagePrice.bestPrice.saleCount .. ')')
+    tooltip:AddLine('Normal: ' .. normalPrice.bestPrice.pricePerPiece .. ' in ' .. normalPrice.bestPrice.guildName .. ' (' .. normalPrice.bestPrice.saleCount .. ')')
 end
 
 local function onTooltipHide()

@@ -64,6 +64,7 @@ local function updateToolTip(itemLink, tooltip)
         return
     end
     lastItemLink = itemLink
+    local _, _, _, itemId = ZO_LinkHandler_ParseLink(itemLink)
 
     local priceSuggestion = JMPriceSuggestion.getPriceSuggestion(
         itemLink,
@@ -85,7 +86,16 @@ local function updateToolTip(itemLink, tooltip)
     )
 
     for guildName, data in pairs(newestPrice.suggestedPriceForGuild) do
-        tooltip:AddLine('Newest: ' .. data.pricePerPiece .. ' in ' .. guildName .. ' (' .. data.saleCount .. ') ' .. ZO_FormatDurationAgo(GetTimeStamp() - data.saleTimestamp))
+        local itemList = JMTradingHouseSnapshot.getByGuildAndItem(guildName, itemId)
+        local cheapestPricePerPiece = '-'
+        if itemList and #itemList > 0 then
+            table.sort(itemList, function(a, b)
+                return a.pricePerPiece < b.pricePerPiece
+            end)
+            cheapestPricePerPiece = itemList[1].pricePerPiece
+        end
+
+        tooltip:AddLine('Newest: ' .. data.pricePerPiece .. ' in ' .. guildName .. ' (' .. data.saleCount .. ') ' .. ZO_FormatDurationAgo(GetTimeStamp() - data.saleTimestamp) .. ' (CH: ' .. cheapestPricePerPiece .. ')')
     end
 
     local cheapestPrice = JMPriceSuggestion.getPriceSuggestion(

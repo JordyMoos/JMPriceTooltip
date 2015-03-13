@@ -64,6 +64,17 @@ local function updateToolTip(itemLink, tooltip)
         return
     end
     lastItemLink = itemLink
+
+
+--    local array = {ZO_LinkHandler_ParseLink(itemLink) }
+--    array[20] = 0 -- Crafted
+--    array[22] = 0 -- Stolen
+--    array[23] = 0 -- Condition
+--    local code = table.concat(array, '_')
+--    d(code)
+
+
+
     local _, _, _, itemId = ZO_LinkHandler_ParseLink(itemLink)
 
     local priceSuggestion = JMPriceSuggestion.getPriceSuggestion(

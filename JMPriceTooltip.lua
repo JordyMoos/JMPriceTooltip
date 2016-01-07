@@ -77,6 +77,21 @@ local function updateToolTip(itemLink, tooltip)
 
     local _, _, _, itemId = ZO_LinkHandler_ParseLink(itemLink)
 
+
+
+--    d('---start')
+--    local saleList = JMGuildSaleHistoryTracker.getSalesFromItemId(itemId)
+--    for _, sale in ipairs(saleList) do
+--        local array = {ZO_LinkHandler_ParseLink(itemLink) }
+--        array[20] = 0 -- Crafted
+--        array[22] = 0 -- Stolen
+--        array[23] = 0 -- Condition
+--        local code = table.concat(array, '_')
+--        d(code)
+--    end
+--    d('---end')
+
+
     local priceSuggestion = JMPriceSuggestion.getPriceSuggestion(
         itemLink,
         JMPriceSuggestion.algorithms.MEDIAN
